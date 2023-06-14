@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[show edit update]
+  before_action :set_article, only: %i[show edit update destroy]
   def index
    @articles = Article.all
   end
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to article_url(@article), notice: 'Article was successfully created.'
+      redirect_to article_url(@article), notice: t('articles_controller.create.flash_success')
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,10 +27,15 @@ class ArticlesController < ApplicationController
   def update
     
     if @article.update(article_params)
-      redirect_to @article, notice: "Article was successfully updated."
+      redirect_to @article, notice: t('articles_controller.update.flash_success')
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @article.destroy
+    redirect_to articles_url, notice: "Article was successfully destroyed."
   end
 
   private
@@ -40,7 +45,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :thumbnail)
   end
 end
 
