@@ -3,7 +3,7 @@ require_relative "boot"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -41,5 +41,8 @@ module App
     config.action_mailer.default_url_options = { host: ENV['APP_DEFAULT_URL_HOST'], port: ENV['APP_DEFAULT_URL_PORT'] }
     Rails.application.routes.default_url_options[:host] = AppConfig.default_url_host 
     Rails.application.routes.default_url_options[:port] = AppConfig.default_url_port
+
+    config.active_job.queue_adapter = :sidekiq
+    
   end
 end

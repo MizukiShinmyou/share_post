@@ -13,6 +13,7 @@ gem 'devise'
 gem 'image_processing', '~> 1.2'
 gem 'mysql2', '~> 0.5'
 gem 'puma', '~> 5.0'
+gem 'sidekiq', '<7'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -24,6 +25,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener_web', '~> 2.0'
   gem 'rubocop', require: false
   gem 'rubocop-performance'
   gem 'rubocop-rails'
